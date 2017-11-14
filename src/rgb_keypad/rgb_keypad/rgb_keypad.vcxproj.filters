@@ -24,7 +24,19 @@
     <ClInclude Include="color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Adafruit_TLC59711.h">
+    <ClInclude Include="Common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Keypad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TLC59711.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScramblePad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,7 +44,13 @@
     <ClCompile Include="color.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Adafruit_TLC59711.cpp">
+    <ClCompile Include="Keypad.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TLC59711.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScramblePad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -19,8 +19,11 @@ BSD license, all text above must be included in any redistribution
 
 class Adafruit_TLC59711 {
 public:
-	Adafruit_TLC59711(uint8_t n, uint8_t c, uint8_t d);
+    // Hardware SPI ctor
 	Adafruit_TLC59711(uint8_t n);
+
+    // Software emulated SPI ctor
+	Adafruit_TLC59711(uint8_t n, uint8_t c, uint8_t d);
 
 	boolean begin(void);
 
