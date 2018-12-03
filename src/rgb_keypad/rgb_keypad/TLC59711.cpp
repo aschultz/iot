@@ -24,6 +24,7 @@ TLC59711::~TLC59711()
 
 void TLC59711::begin()
 {
+	// Init SPI bus
     SPI.begin();
 }
 

@@ -83,8 +83,8 @@ public:
 
 private:
     uint8_t   numDevices;
+	uint16_t  outputBufferLength;
     uint16_t *outputBuffer;
-    uint16_t  outputBufferLength;
 };
 
 #endif

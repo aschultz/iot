@@ -17,15 +17,15 @@
 
 const uint8_t keypadBtnRowPins[] = { 4, 5, 6, 7 };
 const uint8_t keypadBtnColPins[] = { 8, 9, 14, 15 };
-const uint8_t keypadLEDColPins[] = { 16, 17,18, 19 };
+const uint8_t keypadLEDColPins[] = { 16, 17, 18, 19 };
 
 // List keys in pin order, 
-array<const char> keypadChars = toArray("12345678ABCDEFGH");
+array_ref<char> keypadChars = "12345678ABCDEFGH";
 
 uint8_t keyCode[] = { 0, 1, 2, 3 };
 
 TLC59711 tlc(NUM_TLC59711);
-Keypad keypad(toArray(keypadBtnRowPins), toArray(keypadBtnColPins));
+Keypad keypad(keypadBtnRowPins, keypadBtnColPins);
 ScramblePad scramblePad(keypad);
 
 void setup()
@@ -33,7 +33,7 @@ void setup()
 	Serial.begin(9600);
 	Serial.println("Test");
 
-    scramblePad.SetKeyCode( toArray(keyCode) );
+    scramblePad.SetKeyCode( keyCode );
 
 	tlc.begin();
 	tlc.submit();

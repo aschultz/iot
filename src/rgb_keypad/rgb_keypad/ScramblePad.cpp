@@ -4,12 +4,11 @@
 ScramblePad::ScramblePad( Keypad &keypad )
     : m_keyPad( keypad )
 {
-    //m_keyPad.SetKeyChangeListener( this->OnKeyChange );
+	m_keyPad.KeyChangedEvent = delegate<void(const Key&,const KeyState&,const KeyState&)>::create<ScramblePad,&ScramblePad::OnKeyChange>(this);
 }
 
 ScramblePad::~ScramblePad()
 {
-    m_keyPad.SetKeyChangeListener( nullptr );
 }
 
 void ScramblePad::OnCancel()
@@ -30,7 +29,7 @@ void ScramblePad::OnSuccess()
 
 }
 
-void ScramblePad::OnKeyChange( Key &key, KeyState prevState, KeyState newState )
+void ScramblePad::OnKeyChange(const Key &key, const KeyState &prevState, const KeyState &newState)
 {
     // User pressed, released, or held a button.
     // 

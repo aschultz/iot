@@ -5,9 +5,9 @@
 #include "Keypad.h"
 #include <new.h>
 
-Keypad::Keypad(array<const uint8_t> &&rowPins, array<const uint8_t> &&colPins)
-    : m_rowPins(std::move(rowPins)),
-      m_colPins(std::move(colPins)),
+Keypad::Keypad(array_ref<uint8_t> rowPins, array_ref<uint8_t> colPins)
+    : m_rowPins(rowPins),
+      m_colPins(colPins),
       m_keys(rowPins.size() * colPins.size())
 {
     for (uint8_t row = 0; row < m_rowPins.size(); ++row)
@@ -48,16 +48,11 @@ bool Keypad::IsKeyHeld(uint8_t keyIndex)
     return key.State == KeyState::Held;
 }
 
-void Keypad::SetKeyChangeListener( KeyChangeListener listener )
+void Keypad::NotifyKeyChange(const Key &key, const KeyState &prevState, const KeyState &newState)
 {
-    m_keyChangeListener = listener;
-}
-
-void Keypad::NotifyKeyChange(Key &key, KeyState prevState, KeyState newState)
-{
-    if (m_keyChangeListener != nullptr)
+    if (KeyChangedEvent != nullptr)
     {
-        m_keyChangeListener(key, prevState, newState);
+		KeyChangedEvent.operator()(key, prevState, newState);
     }
 }
 
@@ -88,15 +83,22 @@ void Keypad::ReadPinState()
     // After testing a column, we set it back to INPUT so we can test the next column.
     // (If we didn't, our readings would be affected by button presses in other columns).
     //
-    // ____________              ____________
-    //   VCC      |             |    GND
-    //    |       |             |     |
-    //    $       |             |     |
-    //    |       |   Button    |     |
-    // RowPin ----|------X------|---ColPin
-    //            |             |
-    // ___________|             |____________
-    //
+	// Example:
+	//	
+	//	VCC---$---RowPin1--------BTN--------BTN--------PRESS
+	//							  |			 |			|
+	//							  |			 |			|
+	//	VCC---$---RowPin2--------BTN--------PRESS------BTN
+	//							  |			 |			|
+	//							  |			 |			|
+	//							ColPin1	   ColPin2	  ColPin3
+	//							  |			 |			|
+	//							  \			GND			\
+	//
+	// In this example, we're testing whether any buttons in column 2 are pressed (ColPin2 is set to LOW)
+	// RowPin1 will read as HIGH
+	// RowPin2 will read as LOW
+	//
 
     // Connect rows to VCC via built-in resistor
     for (uint8_t row = 0; row < m_rowPins.size(); ++row)
