@@ -1,0 +1,48 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "windows": {
+        "options": {
+            "shell": {
+                "executable": "bash.exe",
+                "args": ["-c"],
+            }
+        }
+    },
+    "options": {
+        "cwd": "${workspaceRoot}"
+    },
+    "tasks": [
+        {
+            "label": "cmake",
+            "group": "build",
+            "type": "shell",
+            "command": "mkdir -p build && cd build && cmake .."
+        },
+        {
+            "label": "make",
+            "group": "build",
+            "type": "shell",
+            "command": "mkdir -p build && cd build && make"
+        },
+        {
+            "label": "build",
+            "group": "build",
+            "dependsOn": ["cmake", "cmake", "make"],
+            "dependsOrder": "sequence"
+        },
+        {
+            "label": "clean",
+            "group": "build",
+            "type": "shell",
+            "command": "rm -rf build/ && rm -rf dist/"
+        },
+        {
+            "label": "rebuild",
+            "group": "build",
+            "dependsOn": ["clean", "build"],
+            "dependsOrder": "sequence"
+        },
+    ]
+}
