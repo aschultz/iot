@@ -2,6 +2,7 @@
     "files.associations": {
         "i2c-dev.h": "c",
         "system_error": "cpp",
-        "stdexcept": "cpp"
+        "stdexcept": "cpp",
+        "chrono": "cpp"
     }
 }

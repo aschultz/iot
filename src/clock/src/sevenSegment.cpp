@@ -14,6 +14,7 @@
 //
 
 const uint8_t charMap[] = {
+    0, // (space)
     0, // !
     0, // "
     0, // #
@@ -76,9 +77,9 @@ const uint8_t charMap[] = {
     0b01101111, // y
     0b01011011, // Z
 
-    0, // [
+    0b00111001, // [
     0, // \ 
-    0, // ]
+    0b00001111, // ]
     0, // ^
     0b00001000, // _
     0, // `
@@ -115,8 +116,8 @@ void SevenSegmentDisplay::commit() {
 uint8_t SevenSegmentDisplay::getLightcode(char c) {
     c = toupper(c);
 
-    if (c >= '!' && c <= '`') {
-        return charMap[c - '!'];
+    if (c >= ' ' && c <= '`') {
+        return charMap[c - ' '];
     }
 
     return 0;

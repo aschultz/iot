@@ -1,7 +1,8 @@
 #include "../include/i2c.h"
+#include "../include/util.h"
 
 #include <cstdio>
-#include <cstring>
+#include <string>
 
 #include <cerrno>
 #include <cassert>
@@ -14,11 +15,11 @@
 #include <linux/i2c-dev.h>
 #include <sys/ioctl.h>
 
-I2CAdapter::I2CAdapter(int id) {
-    char filename[20];
-    snprintf(filename, 19, "/dev/i2c-%d", id);
 
-    int file = open(filename, O_RDWR);
+I2CAdapter::I2CAdapter(int id) {
+    std::string filename = stringFormat("/dev/i2c-%d", id);
+
+    int file = open(filename.c_str(), O_RDWR);
     if (file < 0) {
         throw std::system_error(errno, std::system_category(), "Failed to open I2C adapter");
     }
